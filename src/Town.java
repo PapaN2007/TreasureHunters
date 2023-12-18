@@ -43,7 +43,7 @@ public class Town {
      */
     public void hunterArrives(Hunter hunter) {
         this.hunter = hunter;
-        printMessage = "Welcome to town, " + hunter.getHunterName() + ".";
+        printMessage = "Welcome to town, " + Colors.WHITE + hunter.getHunterName() + Colors.RESET+ ".";
 
         if (toughTown) {
             printMessage += "\nIt's pretty rough around here, so watch yourself.";
@@ -61,16 +61,16 @@ public class Town {
         boolean canLeaveTown = terrain.canCrossTerrain(hunter);
         if (canLeaveTown) {
             String item = terrain.getNeededItem();
-            printMessage = "You used your " + item + " to cross the " + terrain.getTerrainName() + ".";
+            printMessage = "You used your " + Colors.PURPLE+  item + Colors.RESET + " to cross the " + Colors.CYAN + terrain.getTerrainName() + Colors.RESET +  ".";
             if (checkItemBreak()) {
                 hunter.removeItemFromKit(item);
-                printMessage += "\nUnfortunately, your " + item + " broke.";
+                printMessage += "\nUnfortunately, your " + Colors.PURPLE+ item + Colors.RESET + " broke.";
             }
 
             return true;
         }
 
-        printMessage = "You can't leave town, " + hunter.getHunterName() + ". You don't have a " + terrain.getNeededItem() + ".";
+        printMessage = "You can't leave town, " + hunter.getHunterName() + ". You don't have a " + Colors.PURPLE + terrain.getNeededItem() + Colors.RESET + ".";
         return false;
     }
 
@@ -97,24 +97,24 @@ public class Town {
         }
 
         if (Math.random() > noTroubleChance) {
-            printMessage = "You couldn't find any trouble";
+            printMessage = Colors.BLACK + "You couldn't find any trouble" + Colors.RESET;
         } else {
-            printMessage = "You want trouble, stranger!  You got it!\nOof! Umph! Ow!\n";
+            printMessage = Colors.RED + "You want trouble, stranger!  You got it!\nOof! Umph! Ow!\n" + Colors.RESET;
             int goldDiff = (int) (Math.random() * 10) + 1;
             if (Math.random() > noTroubleChance) {
-                printMessage += "Okay, stranger! You proved yer mettle. Here, take my gold.";
-                printMessage += "\nYou won the brawl and receive " + goldDiff + " gold.";
+                printMessage += Colors.BLUE + "Okay, stranger! You proved yer mettle. Here, take my gold." + Colors.RESET;
+                printMessage += "\nYou won the brawl and receive " + Colors.YELLOW +  goldDiff + Colors.RESET + " gold.";
                 hunter.changeGold(goldDiff);
             } else {
-                printMessage += "That'll teach you to go lookin' fer trouble in MY town! Now pay up!";
-                printMessage += "\nYou lost the brawl and pay " + goldDiff + " gold.";
+                printMessage += Colors.RED + "That'll teach you to go lookin' fer trouble in MY town! Now pay up!" + Colors.RESET;
+                printMessage += "\nYou lost the brawl and pay " +Colors.YELLOW +  goldDiff + Colors.RESET+ " gold.";
                 hunter.changeGold(-goldDiff);
             }
         }
     }
 
     public String toString() {
-        return "This nice little town is surrounded by " + terrain.getTerrainName() + ".";
+        return "This nice little town is surrounded by " +Colors.CYAN+  terrain.getTerrainName() + Colors.RESET +  ".";
     }
 
     /**
