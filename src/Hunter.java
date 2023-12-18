@@ -50,7 +50,6 @@ public class Hunter {
         if (costOfItem == 0 || gold < costOfItem || hasItemInKit(item)) {
             return false;
         }
-
         gold -= costOfItem;
         addItem(item);
         return true;
@@ -101,7 +100,6 @@ public class Hunter {
             kit[idx] = item;
             return true;
         }
-
         return false;
     }
 
