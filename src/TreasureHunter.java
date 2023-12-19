@@ -31,7 +31,7 @@ public class TreasureHunter {
      * Starts the game; this is the only public method
      */
     public void play() {
-            welcomePlayer();
+        welcomePlayer();
         while (hunter.isGameOver() == false) {
             enterTown();
             showMenu();
