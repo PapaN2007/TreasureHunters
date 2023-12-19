@@ -31,9 +31,12 @@ public class TreasureHunter {
      * Starts the game; this is the only public method
      */
     public void play() {
-        welcomePlayer();
-        enterTown();
-        showMenu();
+            welcomePlayer();
+        while (hunter.isGameOver() == false) {
+            enterTown();
+            showMenu();
+        }
+        System.out.println("Game Over! You have no more gold :(");
     }
 
     /**
@@ -101,22 +104,25 @@ public class TreasureHunter {
      */
     private void showMenu() {
         String choice = "";
-
-        while (!choice.equals("x")) {
-            System.out.println();
-            System.out.println(currentTown.getLatestNews());
-            System.out.println("***");
-            System.out.println(hunter);
-            System.out.println(currentTown);
-            System.out.println("(B)uy something at the shop.");
-            System.out.println("(S)ell something at the shop.");
-            System.out.println("(M)ove on to a different town.");
-            System.out.println("(L)ook for trouble!");
-            System.out.println("Give up the hunt and e(X)it.");
-            System.out.println();
-            System.out.print("What's your next move? ");
-            choice = SCANNER.nextLine().toLowerCase();
-            processChoice(choice);
+        if (hunter.isGameOver() == false) {
+            while (!choice.equals("x")) {
+                System.out.println();
+                System.out.println(currentTown.getLatestNews());
+                System.out.println("***");
+                System.out.println(hunter);
+                System.out.println(currentTown);
+                System.out.println("(B)uy something at the shop.");
+                System.out.println("(S)ell something at the shop.");
+                System.out.println("(M)ove on to a different town.");
+                System.out.println("(L)ook for trouble!");
+                System.out.println("Give up the hunt and e(X)it.");
+                System.out.println();
+                System.out.print("What's your next move? ");
+                choice = SCANNER.nextLine().toLowerCase();
+                processChoice(choice);
+            }
+         } else{
+            System.out.println("Game Over! You have no more gold :(");
         }
     }
 
