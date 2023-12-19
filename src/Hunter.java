@@ -43,9 +43,6 @@ public class Hunter {
     public int getGold(){
         return gold;
     }
-    public boolean isGameOver(){
-        return gameOver;
-    }
 
     /**
      * Buys an item from a shop.
