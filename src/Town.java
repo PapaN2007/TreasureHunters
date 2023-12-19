@@ -111,6 +111,9 @@ public class Town {
                 hunter.changeGold(-goldDiff);
             }
         }
+        if(hunter.getGold() < 0){
+            TreasureHunter.lose = true;
+        }
     }
 
     public String toString() {
