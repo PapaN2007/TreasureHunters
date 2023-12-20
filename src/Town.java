@@ -12,6 +12,7 @@ public class Town {
     private String printMessage;
     private boolean toughTown;
 
+    private double tough;
     /**
      * The Town Constructor takes in a shop and the surrounding terrain, but leaves the hunter as null until one arrives.
      *
@@ -30,6 +31,7 @@ public class Town {
 
         // higher toughness = more likely to be a tough town
         toughTown = (Math.random() < toughness);
+        tough = toughness;
     }
 
     public String getLatestNews() {
@@ -62,7 +64,7 @@ public class Town {
         if (canLeaveTown) {
             String item = terrain.getNeededItem();
             printMessage = "You used your " + Colors.PURPLE+  item + Colors.RESET + " to cross the " + Colors.CYAN + terrain.getTerrainName() + Colors.RESET +  ".";
-            if (checkItemBreak()) {
+            if (checkItemBreak() && (tough > 0.1)) {
                 hunter.removeItemFromKit(item);
                 printMessage += "\nUnfortunately, you lost your " + Colors.PURPLE+ item + Colors.RESET + ".";
             }
