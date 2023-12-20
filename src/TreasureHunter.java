@@ -53,7 +53,7 @@ public class TreasureHunter {
 
         System.out.print("Choose a mode (e, n, h): ");
         String mode = SCANNER.nextLine().toLowerCase();
-        if (mode.equals("y")) {
+        if (mode.equals("h")) {
             hardMode = true;
         }
         if (mode.equals("e"))   {
