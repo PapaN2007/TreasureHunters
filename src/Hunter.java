@@ -165,7 +165,7 @@ public class Hunter {
         return printableKit;
     }
     public String treasureInventory() {
-        String printableTreasure = "";
+        String printableTreasure = "Treasures found: ";
         String space = " ";
 
         for (String item : treasure) {
@@ -185,7 +185,9 @@ public class Hunter {
         if (!kitIsEmpty()) {
             str += " and " + Colors.PURPLE+ getInventory() + Colors.RESET;
         }if (!treasureIsEmpty()) {
-            str += " and " + Colors.CYAN+ treasureInventory() + Colors.RESET;
+            str += "\n " + Colors.CYAN+ treasureInventory() + Colors.RESET;
+        } else{
+            str += "\n" + Colors.CYAN+ "Treasure: none" + Colors.RESET;
         }
         return str;
     }
