@@ -15,6 +15,7 @@ public class Shop {
     private static final int HORSE_COST = 12;
     private static final int BOAT_COST = 20;
 
+    private static final int SWORD_COST = 0;
 
 
     // static variables
@@ -23,15 +24,18 @@ public class Shop {
     // instance variables
     private double markdown;
     private Hunter customer;
+    private boolean sword;
+    private boolean swordMode;
 
     /**
      * The Shop constructor takes in a markdown value and leaves customer null until one enters the shop.
      *
      * @param markdown Percentage of markdown for selling items in decimal format.
      */
-    public Shop(double markdown) {
+    public Shop(double markdown, boolean swordMode) {
         this.markdown = markdown;
         customer = null; // is set in the enter method
+        this.swordMode = swordMode;
     }
 
     /**
@@ -50,7 +54,7 @@ public class Shop {
             System.out.print("What're you lookin' to buy? ");
             String item = SCANNER.nextLine().toLowerCase();
             int cost = checkMarketPrice(item, true);
-            if (cost == 0) {
+            if (cost == -1) {
                 System.out.println("We ain't got none of those.");
             } else {
                 System.out.print("It'll cost you " +Colors.YELLOW +  cost + Colors.RESET + " gold. Buy it (y/n)? ");
@@ -65,7 +69,7 @@ public class Shop {
             System.out.print("You currently have the following items: " + customer.getInventory());
             String item = SCANNER.nextLine().toLowerCase();
             int cost = checkMarketPrice(item, false);
-            if (cost == 0) {
+            if (cost == -1) {
                 System.out.println("We don't want none of those.");
             } else {
                 System.out.print("It'll get you " + cost + " gold. Sell it (y/n)? ");
@@ -91,7 +95,9 @@ public class Shop {
         str += Colors.PURPLE +"Boots: " + Colors.RESET+ Colors.YELLOW + BOOTS_COST + " gold\n" + Colors.RESET;
         str += Colors.PURPLE +"Horse: " + Colors.RESET+ Colors.YELLOW + HORSE_COST + " gold\n" + Colors.RESET;
         str += Colors.PURPLE +"Boat: " + Colors.RESET+Colors.YELLOW + BOAT_COST + " gold\n" + Colors.RESET;
-
+        if (swordMode)    {
+            str += Colors.PURPLE +"Sword: " + Colors.RESET+Colors.YELLOW + SWORD_COST + " gold\n" + Colors.RESET;
+        }
         return str;
     }
 
@@ -102,8 +108,15 @@ public class Shop {
      */
     public void buyItem(String item) {
         int costOfItem = checkMarketPrice(item, true);
-        if (customer.buyItem(item, costOfItem)) {
+        if (sword)  {
+            System.out.println("The sword intimidates the shopkeeper and he gives you the item freely");
+            System.out.println("Ye' got yerself a " + Colors.PURPLE + item + Colors.RESET);
+            boolean bought = customer.buyItem(item, 0);
+        } else if ((customer.buyItem(item, costOfItem))) {
             System.out.println("Ye' got yerself a " + Colors.PURPLE + item + Colors.RESET +  ". Come again soon.");
+            if (item.equals("sword")) {
+                sword = true;
+            }
         } else {
             System.out.println("Hmm, either you don't have enough gold or you've already got one of those!");
         }
@@ -157,9 +170,11 @@ public class Shop {
             return BOAT_COST;
         } else if (item.equals("boots")){
             return BOOTS_COST;
+        } else if (item.equals("sword"))    {
+            return SWORD_COST;
         }
         else {
-            return 0;
+            return -1;
         }
     }
 

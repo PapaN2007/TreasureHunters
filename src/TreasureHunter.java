@@ -17,6 +17,7 @@ public class TreasureHunter {
     private Hunter hunter;
     private boolean hardMode;
     private boolean easyMode;
+    private boolean samuraiMode;
     public static  boolean lose = false;
     public static boolean hunted = false;
 
@@ -29,6 +30,7 @@ public class TreasureHunter {
         hunter = null;
         hardMode = false;
         easyMode = false;
+        samuraiMode = false;
     }
 
     /**
@@ -61,6 +63,9 @@ public class TreasureHunter {
             easyMode = true;
             hunter.changeGold(10);
         }
+        if (mode.equals("s"))   {
+            samuraiMode = true;
+        }
         if (mode.equals(("test")))  {
             hunter.changeGold(134);
             hunter.buyItem("water", 2);
@@ -86,14 +91,18 @@ public class TreasureHunter {
         }
         if (easyMode)   {
             markdown = 1;
-            toughness = 0.1;
+            toughness = 0.2;
+        }
+
+        if (samuraiMode)    {
+            toughness = 0;
         }
 
         // note that we don't need to access the Shop object
         // outside of this method, so it isn't necessary to store it as an instance
         // variable; we can leave it as a local variable
 
-        Shop shop = new Shop(markdown);
+        Shop shop = new Shop(markdown, samuraiMode);
 
         // creating the new Town -- which we need to store as an instance
         // variable in this class, since we need to access the Town
