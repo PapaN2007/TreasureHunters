@@ -10,6 +10,7 @@ public class Hunter {
     private String[] kit;
     private String[] treasure;
     private int gold;
+    private int count;
     private boolean gameOver;
 
     /**
@@ -24,6 +25,7 @@ public class Hunter {
         kit = new String[6]; // only 6 possible items can be stored in kit
         gold = startingGold;
         gameOver = false;
+        count = 0;
     }
 
     //Accessors
@@ -111,13 +113,19 @@ public class Hunter {
     }
     public boolean addTreasure(String item) {
         if (!hasTreasure(item)) {
+            count();
             int idx = emptyPositionInTreasure();
             treasure[idx] = item;
             return true;
         }
         return false;
     }
-
+    public void count(){
+        count++;
+        if (count == 3){
+            TreasureHunter.win = true;
+        }
+    }
 
     /**
      * Checks if the kit Array has the specified item.
@@ -256,4 +264,5 @@ public class Hunter {
 
         return -1;
     }
+
 }

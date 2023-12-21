@@ -158,7 +158,7 @@ public class Town {
     }
     public String randomTreasure(){
         String item = "";
-        int rand = (int) ((Math.random() * 4) - 1);
+        int rand = (int) ((Math.random() * 4) + 1);
         if (rand == 1){
             item = "Crown";
         } else if (rand == 2){
