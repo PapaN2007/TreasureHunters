@@ -19,6 +19,8 @@ public class TreasureHunter {
     private boolean easyMode;
     private boolean samuraiMode;
     public static  boolean lose = false;
+    public static  boolean win = false;
+
     public static boolean hunted = false;
 
     /**
@@ -123,7 +125,7 @@ public class TreasureHunter {
      */
     private void showMenu() {
         String choice = "";
-        while (!choice.equals("x") && !lose) {
+        while (!choice.equals("x") && !lose && !win) {
             System.out.println();
             System.out.println(currentTown.getLatestNews());
             System.out.println("***");
@@ -142,6 +144,9 @@ public class TreasureHunter {
         }
         if (lose) {
             System.out.println("Game over. You've went below 0 gold and lost.");
+        }
+        if (win){
+            System.out.println("Congratulations, you have found the last of the three treasures, you win!");
         }
     }
 

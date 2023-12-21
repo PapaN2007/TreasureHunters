@@ -10,6 +10,7 @@ public class Hunter {
     private String[] kit;
     private String[] treasure;
     private int gold;
+    private int count;
     private boolean gameOver;
 
     /**
@@ -24,6 +25,7 @@ public class Hunter {
         kit = new String[8];
         gold = startingGold;
         gameOver = false;
+        count = 0;
     }
 
     //Accessors
@@ -111,13 +113,19 @@ public class Hunter {
     }
     public boolean addTreasure(String item) {
         if (!hasTreasure(item)) {
+            count();
             int idx = emptyPositionInTreasure();
             treasure[idx] = item;
             return true;
         }
         return false;
     }
-
+    public void count(){
+        count++;
+        if (count == 3){
+            TreasureHunter.win = true;
+        }
+    }
 
     /**
      * Checks if the kit Array has the specified item.
@@ -165,7 +173,7 @@ public class Hunter {
         return printableKit;
     }
     public String treasureInventory() {
-        String printableTreasure = "";
+        String printableTreasure = "Treasures found: ";
         String space = " ";
 
         for (String item : treasure) {
@@ -185,7 +193,9 @@ public class Hunter {
         if (!kitIsEmpty()) {
             str += " and " + Colors.PURPLE+ getInventory() + Colors.RESET;
         }if (!treasureIsEmpty()) {
-            str += " and " + Colors.CYAN+ treasureInventory() + Colors.RESET;
+            str += "\n " + Colors.CYAN+ treasureInventory() + Colors.RESET;
+        } else{
+            str += "\n" + Colors.CYAN+ "Treasure: none" + Colors.RESET;
         }
         return str;
     }
@@ -254,4 +264,5 @@ public class Hunter {
 
         return -1;
     }
+
 }
