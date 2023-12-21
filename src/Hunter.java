@@ -8,6 +8,7 @@ public class Hunter {
     //instance variables
     private String hunterName;
     private String[] kit;
+    private String[] treasure;
     private int gold;
     private boolean gameOver;
 
@@ -19,6 +20,7 @@ public class Hunter {
      */
     public Hunter(String hunterName, int startingGold) {
         this.hunterName = hunterName;
+        treasure = new String[3];
         kit = new String[6]; // only 6 possible items can be stored in kit
         gold = startingGold;
         gameOver = false;
@@ -107,6 +109,15 @@ public class Hunter {
         }
         return false;
     }
+    public boolean addTreasure(String item) {
+        if (!hasTreasure(item)) {
+            int idx = emptyPositionInTreasure();
+            treasure[idx] = item;
+            return true;
+        }
+        return false;
+    }
+
 
     /**
      * Checks if the kit Array has the specified item.
@@ -116,6 +127,16 @@ public class Hunter {
      */
     public boolean hasItemInKit(String item) {
         for (String tmpItem : kit) {
+            if (item.equals(tmpItem)) {
+                // early return
+                return true;
+            }
+        }
+
+        return false;
+    }
+    public boolean hasTreasure(String item) {
+        for (String tmpItem : treasure) {
             if (item.equals(tmpItem)) {
                 // early return
                 return true;
@@ -143,6 +164,18 @@ public class Hunter {
 
         return printableKit;
     }
+    public String treasureInventory() {
+        String printableTreasure = "";
+        String space = " ";
+
+        for (String item : treasure) {
+            if (item != null) {
+                printableTreasure += item + space;
+            }
+        }
+
+        return printableTreasure;
+    }
 
     /**
      * @return A string representation of the hunter.
@@ -151,6 +184,8 @@ public class Hunter {
         String str = hunterName + " has " + Colors.YELLOW +  gold + Colors.RESET + " gold";
         if (!kitIsEmpty()) {
             str += " and " + Colors.PURPLE+ getInventory() + Colors.RESET;
+        }if (!treasureIsEmpty()) {
+            str += " and " + Colors.CYAN+ treasureInventory() + Colors.RESET;
         }
         return str;
     }
@@ -187,7 +222,15 @@ public class Hunter {
 
         return true;
     }
+    private boolean treasureIsEmpty() {
+        for (String string : treasure) {
+            if (string != null) {
+                return false;
+            }
+        }
 
+        return true;
+    }
     /**
      * Finds the first index where there is a null value.
      *
@@ -196,6 +239,15 @@ public class Hunter {
     private int emptyPositionInKit() {
         for (int i = 0; i < kit.length; i++) {
             if (kit[i] == null) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+    private int emptyPositionInTreasure() {
+        for (int i = 0; i < treasure.length; i++) {
+            if (treasure[i] == null) {
                 return i;
             }
         }

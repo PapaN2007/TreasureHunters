@@ -28,10 +28,11 @@ public class Town {
         hunter = null;
 
         printMessage = "";
-
+        boolean hunted = false;
         // higher toughness = more likely to be a tough town
         toughTown = (Math.random() < toughness);
         tough = toughness;
+
     }
 
     public String getLatestNews() {
@@ -154,5 +155,26 @@ public class Town {
     private boolean checkItemBreak() {
         double rand = Math.random();
         return (rand < 0.5);
+    }
+    public String randomTreasure(){
+        String item = "";
+        int rand = (int) ((Math.random() * 4) - 1);
+        if (rand == 1){
+            item = "Crown";
+        } else if (rand == 2){
+            item = "Trophy";
+        } else if (rand == 3){
+            item = "Gem";
+        } else{
+            item = "Dust";
+        }
+
+        return item;
+    }
+    public void hunt(String item){
+        System.out.println("You found " + item + "!");
+        if (!item.equals("Dust")){
+            hunter.addTreasure(item);
+        }
     }
 }
