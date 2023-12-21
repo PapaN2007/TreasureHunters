@@ -181,4 +181,14 @@ public class Town {
             hunter.addTreasure(item);
         }
     }
+    public void dig(){
+        int random = (int) ((Math.random() * 1) + 1);
+            if (random == 1){
+                int gold = (int) ((Math.random() * 19) + 1);
+                System.out.println("You dug up " + gold + " gold");
+                hunter.changeGold(gold);
+            } else{
+                System.out.println("You dug but only found dirt");
+        }
+    }
 }

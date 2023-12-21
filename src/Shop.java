@@ -14,6 +14,8 @@ public class Shop {
     private static final int BOOTS_COST = 10;
     private static final int HORSE_COST = 12;
     private static final int BOAT_COST = 20;
+    private static final int SHOVEL_COST = 8;
+
 
     private static final int SWORD_COST = 0;
 
@@ -172,9 +174,10 @@ public class Shop {
             return BOOTS_COST;
         } else if (item.equals("sword"))    {
             return SWORD_COST;
-        }
-        else {
-            return -1;
+        }else if (item.equals("shovel")) {
+            return SHOVEL_COST;
+        }else {
+            return -1 ;
         }
     }
 

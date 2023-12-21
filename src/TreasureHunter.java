@@ -22,6 +22,8 @@ public class TreasureHunter {
     public static  boolean win = false;
 
     public static boolean hunted = false;
+    public static boolean dug = false;
+
 
     /**
      * Constructs the Treasure Hunter game.
@@ -69,12 +71,13 @@ public class TreasureHunter {
             samuraiMode = true;
         }
         if (mode.equals(("test")))  {
-            hunter.changeGold(134);
+            hunter.changeGold(142);
             hunter.buyItem("water", 2);
             hunter.buyItem("rope", 4);
             hunter.buyItem("machete", 6);
             hunter.buyItem("horse", 12);
             hunter.buyItem("boat", 20);
+            hunter.buyItem("shovel", 8);
         }
     }
 
@@ -136,6 +139,7 @@ public class TreasureHunter {
             System.out.println("(M)ove on to a different town.");
             System.out.println("(L)ook for trouble!");
             System.out.println("(H)unt for treasure!");
+            System.out.println("(D)ig for gold!");
             System.out.println("Give up the hunt and e(X)it.");
             System.out.println();
             System.out.print("What's your next move? ");
@@ -163,6 +167,7 @@ public class TreasureHunter {
                 System.out.println(currentTown.getLatestNews());
                 enterTown();
                 hunted = false;
+                dug = false;
             }
         } else if (choice.equals("l")) {
             currentTown.lookForTrouble();
@@ -175,6 +180,15 @@ public class TreasureHunter {
                 hunted = true;
             } else{
                 System.out.println("You already searched this town.");
+            }
+        } else if (choice.equals("d")){
+            if (!dug && hunter.hasItemInKit("shovel")){
+                currentTown.dig();
+                dug = true;
+            } else if (dug){
+                System.out.println("You already dug for gold this town.");
+            }else{
+                System.out.println("You can't dig for gold without a shovel.");
             }
         }
         else {
